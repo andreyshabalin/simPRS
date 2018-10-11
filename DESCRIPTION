@@ -18,5 +18,5 @@ Description: Simulation of Polygenic Risk Score calculations allows to
 License: LGPL-3
 LazyLoad: yes
 BugReports: https://github.com/andreyshabalin/simPRS/issues
-URL: https://andreyshabalin.shinyapps.io/simPRS/
+URL: https://github.com/andreyshabalin/simPRS, https://andreyshabalin.shinyapps.io/simPRS/
 Depends: R (>= 3.4.0), methods, utils, graphics, stats
