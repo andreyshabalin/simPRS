@@ -8,19 +8,19 @@
     Supports various signal strength distributions.
 }
 \usage{
-genSignal(NSignalSnps, NTotalSNPs, Heritability, SignalDistr = "Same")
+genSignal(NSignalSnps, NTotalSNPs, heritability, signalDistr = "Same")
 }
 \arguments{
     \item{NSignalSnps}{
         Number of causal SNPs.
     }
-    \item{SignalDistr}{
+    \item{signalDistr}{
         Distribution of effect sizes. Has to be "Same", "Normal", or "Uniform".
     }
     \item{NTotalSNPs}{
         Total number of SNPs.
     }
-    \item{Heritability}{
+    \item{heritability}{
         SNP heritability, a value between 0 and 1.
     }
 }
@@ -38,9 +38,10 @@ genSignal(NSignalSnps, NTotalSNPs, Heritability, SignalDistr = "Same")
 %    See \code{\link[base]{order}}.
 %}
 \examples{
-genSignal(
-    NSignalSnps = 10,
-    NTotalSNPs = 20,
-    Heritability = 0.1,
-    SignalDistr = "Same")
+signal = genSignal(
+            NSignalSnps = 10,
+            NTotalSNPs = 20,
+            heritability = 0.1,
+            signalDistr = "Same")
+gwas = gwasFast(signal = signal, N = 1000)
 }
