@@ -65,3 +65,34 @@ gwasFast = function(signal, N){
         ));
 }
 
+prsInf = function(gwasBt, gwasPV, signal){
+    
+    stopifnot( is.numeric(gwasPV) );
+    stopifnot( is.numeric(gwasBt) );
+    stopifnot( is.numeric(signal) );
+    
+    stopifnot( length(gwasPV) == length(signal) );
+    stopifnot( length(gwasBt) == length(signal) );
+
+    
+    ord = order(gwasPV);
+    ord[1:100];
+
+    ordPV = gwasPV[ord];
+    ordBt = gwasBt[ord];
+    ordSg = signal[ord];
+    
+    prsR = cumsum(ordSg * ordBt) / sqrt( cumsum( ordBt^2 ) );
+    return(list(
+        # ord = ord,
+        pv = ordPV,
+        r = prsR
+        # ordLPV = rev(-log10(ordPV)),
+        # ordBt = ordBt,
+        # ordSg = ordSg,
+        # prsR = rev(prsR)
+        # prsR2 = pmax(prsR,0)^2
+        ));
+}
+
+

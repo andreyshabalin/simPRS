@@ -1,6 +1,7 @@
 export(
     genSignal,
-    gwasFast
+    gwasFast,
+    prsInf
 )
 
 importFrom("stats",
