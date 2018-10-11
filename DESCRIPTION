@@ -1,0 +1,22 @@
+Package: simPRS
+Type: Package
+Title: Fast Simulation of Polygenic Risk Scores
+Version: 0.9
+Date: 2018-10-11
+Authors@R: person(  "Andrey A", "Shabalin",
+                    role = c("aut", "cre"),
+                    email = "andrey.shabalin@gmail.com",
+                    comment = c(ORCID = "0000-0003-0309-6821"))
+Description: Simulation of Polygenic Risk Score calculations allows to 
+        (1) Select an optimal p-value threshold,
+        (2) Perform power analyses, and
+        (3) Estimate polygenicity of a phenotype.
+        Simulations are performed without direct simulations of the 
+        genotype and phenotype data. 
+        Instead, genome-wide association study (GWAS) summary statistics
+        are generated directly from their finite sample distributions.
+License: LGPL-3
+LazyLoad: yes
+BugReports: https://github.com/andreyshabalin/simPRS/issues
+URL: https://andreyshabalin.shinyapps.io/simPRS/
+Depends: R (>= 3.4.0), methods, utils, graphics, stats
