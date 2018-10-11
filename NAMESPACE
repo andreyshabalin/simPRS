@@ -13,4 +13,4 @@ importFrom("graphics",
     "plot", "polygon", "legend")
     
 importFrom("grDevices",
-    "col2rgb", "rgb");
+    "col2rgb", "rgb")
