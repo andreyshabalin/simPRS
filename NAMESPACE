@@ -2,8 +2,15 @@ export(
     genSignal,
     gwasFast,
     prsInf,
-    rConfInt
+    rConfInt,
+    prsPlot
 )
 
 importFrom("stats",
     "rnorm", "qnorm", "rchisq", "pt")
+
+importFrom("graphics",
+    "plot", "polygon", "legend")
+    
+importFrom("grDevices",
+    "col2rgb", "rgb");

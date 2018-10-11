@@ -117,3 +117,41 @@ rConfInt = function(r, N, alpha = 0.05){
                 lower = ri[, 1], 
                 upper = ri[, 2]));
 }
+
+prsPlot = function(pv, r, confInt){
+
+    grid = -log10(pv);
+    
+    maxy = max(r, confInt$lower, confInt$upper)^2;
+    
+    # par(mgp = c(2, 1, 0));
+    
+    rgb = col2rgb('blue', alpha = TRUE);
+    col = rgb(rgb[1]/255, rgb[2]/255, rgb[3]/255, 0.2)
+    plot(
+        x = grid,
+        y = pmax(r,0)^2*100,
+        type = 'l',
+        main = "", # paste0('PRS R2, Ntest = ', param$Ntest),
+        col = 'blue',
+        xaxs = 'i',
+        ylab = expression(paste("R"^"2"," %")),
+        ylim = c(0, maxy*100), # c(0, max(ri)^2)*100,
+        yaxs = 'i',
+        xlab = expression(paste("-", " log"[10] * "(", italic("P"), ")")),
+        xlim = c(0,max(grid)),
+        las = 1);
+    # mtext(expression(paste("R"^"2"," (%)")), side=2, line=2, las = 0)
+    polygon(
+        x = c(grid, rev(grid)), 
+        y = pmax(0,c(confInt$lower, rev(confInt$upper)))^2*100,
+        col = col,
+        border = NA); 
+    legend(
+        x = 'right', 
+        legend = c(expression(paste("Asymptotic R"^"2")), 'Confidence band'),
+        lwd = c(1,10),
+        col = c('blue',col));
+    return(invisible(NULL));
+}
+
