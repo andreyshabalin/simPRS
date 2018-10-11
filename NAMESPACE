@@ -1,0 +1,6 @@
+export(
+    genSignal
+)
+
+importFrom("stats",
+    "rnorm")
