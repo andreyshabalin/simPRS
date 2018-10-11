@@ -37,12 +37,14 @@ gwasFast = function(signal, N){
     Nsnps = length(signal);
     df = N - 1;
     syy = rchisq(n = Nsnps, df = df) / df;
-    sxy = rnorm( n = Nsnps, 
-                 mean = signal * syy,
-                 sd = sqrt( (1 - signal^2) * syy / df)
+    sxy = rnorm(n = Nsnps,
+                mean = signal * syy,
+                sd = sqrt( (1 - signal^2) * syy / df)
                );
-    sxx = (1 - signal^2) / df * 
-          rchisq( n = Nsnps, df = df, ncp = df * syy * signal^2 / (1 - signal^2));
+    sxx = (1 - signal^2) / df *
+          rchisq(n = Nsnps,
+                 df = df, 
+                 ncp = df * syy * signal^2 / (1 - signal^2));
                 
     beta = sxy / sxx;
     cr = sxy / sqrt(sxx*syy);

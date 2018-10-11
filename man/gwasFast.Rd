@@ -4,7 +4,7 @@
     Fast Simulation of GWAS Summary Statistics
 }
 \description{
-    Generate estimates of
+    Generates estimates of
     SNP effect sizes and p-values
     based on the true effect sizes and samples size.
 }
