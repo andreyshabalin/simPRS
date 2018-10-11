@@ -26,7 +26,7 @@ genSignal(NSignalSnps, NTotalSNPs, heritability, signalDistr = "Same")
 }
 \details{
     The function generates a signal effect size vector
-    that can be used in \code{\link{genSignal}}.
+    that can be used in \code{\link{gwasFast}}.
 }
 \value{
     Return a vector of length \code{NTotalSNPs}.

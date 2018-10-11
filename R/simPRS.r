@@ -27,3 +27,39 @@ genSignal = function(NSignalSnps, NTotalSNPs, heritability, signalDistr = "Same"
 
     return(signal);
 }
+
+gwasFast = function(signal, N){
+    
+    stopifnot( is.numeric(signal) );
+    stopifnot( is.numeric(N) );
+    stopifnot( length(N) == 1 );
+    
+    Nsnps = length(signal);
+    df = N - 1;
+    syy = rchisq(n = Nsnps, df = df) / df;
+    sxy = rnorm( n = Nsnps, 
+                 mean = signal * syy,
+                 sd = sqrt( (1 - signal^2) * syy / df)
+               );
+    sxx = (1 - signal^2) / df * 
+          rchisq( n = Nsnps, df = df, ncp = df * syy * signal^2 / (1 - signal^2));
+                
+    beta = sxy / sxx;
+    cr = sxy / sqrt(sxx*syy);
+    dfFull = N - 2;
+    cor2tt = function(x){
+        return( x * sqrt(dfFull / (1 - pmin(x^2,1))));
+    }
+    tt2pv = function(x){
+        return( (pt(-abs(x), dfFull)*2) );
+    }
+    tt = cor2tt(cr);
+    pv = tt2pv(tt);
+    return(list(
+            beta = beta,
+            pv = pv
+            # cr = cr,
+            # tt = tt
+        ));
+}
+

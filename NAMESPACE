@@ -1,6 +1,7 @@
 export(
-    genSignal
+    genSignal,
+    gwasFast
 )
 
 importFrom("stats",
-    "rnorm")
+    "rnorm", "rchisq", "pt")
