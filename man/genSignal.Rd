@@ -43,5 +43,8 @@ signal = genSignal(
             NTotalSNPs = 20,
             heritability = 0.1,
             signalDistr = "Same")
+            
 gwas = gwasFast(signal = signal, N = 1000)
+
+cbind(beta = gwas$beta, pv = gwas$pv)
 }
