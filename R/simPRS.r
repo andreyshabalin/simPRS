@@ -95,4 +95,25 @@ prsInf = function(gwasBt, gwasPV, signal){
         ));
 }
 
-
+rConfInt = function(r, N, alpha = 0.05){
+    
+    stopifnot( is.numeric(r) );
+    stopifnot( is.numeric(N) );
+    stopifnot( length(N) == 1 );
+    stopifnot( is.numeric(alpha) );
+    stopifnot( length(alpha) == 1 );
+    stopifnot( alpha <= 1 );
+    stopifnot( alpha >= 0 );
+    
+    if( alpha > 0.5 )
+        alpha = 1 - alpha;
+    
+    n3 = N - 3;
+    z = (sqrt(n3) / 2) * log( (1 + r)/(1 - r) );
+    zi = outer(z, c(-1, 1) * qnorm(alpha/2, lower.tail = FALSE), FUN = `+`);
+    qi = exp(2 * zi / sqrt(n3));
+    ri = (qi - 1) / (qi + 1);
+    return(data.frame( 
+                lower = ri[, 1], 
+                upper = ri[, 2]));
+}

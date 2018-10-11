@@ -1,8 +1,9 @@
 export(
     genSignal,
     gwasFast,
-    prsInf
+    prsInf,
+    rConfInt
 )
 
 importFrom("stats",
-    "rnorm", "rchisq", "pt")
+    "rnorm", "qnorm", "rchisq", "pt")
