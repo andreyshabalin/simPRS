@@ -55,5 +55,4 @@ prs = prsInf(
             signal = signal)
 
 cbind(pv = prs$pv, r = prs$r)
-
 }
