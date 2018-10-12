@@ -155,3 +155,56 @@ prsPlot = function(pv, r, confInt){
     return(invisible(NULL));
 }
 
+prsParFun = function(randseed = 0, signal, N, Nsim, minpv = 1e-20){
+    
+    # library(simPRS);
+    
+    if(randseed > 0)
+        set.seed(randseed);
+    
+    grid = c(0.1^seq(-log10(minpv),0, by = -0.01), 1);
+    
+    mn = double(length(grid));
+    ct = integer(length(grid));
+    for( i in seq_len(Nsim) ){
+        gwas = gwasFast(signal, N);
+        prsI = prsInf(gwasPV = gwas$pv, gwasBt = gwas$beta, signal);
+        fi = findInterval(grid, prsI$pv)
+        set = which(fi > 0L);
+        mn[set] = mn[set] + prsI$r[fi[set]];
+        ct[set] = ct[set] + 1L;
+    }
+    return(list( mn = mn, ct = ct ));
+}
+
+prsMultitest = function(signal, N, Nsim, nthreads = 0, minpv = 1e-20){
+
+    # library(parallel);
+    if( nthreads == 0 )
+        nthreads = detectCores(logical = TRUE);
+    
+    if( nthreads == 1 ){
+        mnct = prsParFun(signal = signal, N = N, Nsim = Nsim, minpv = minpv)
+    } else {
+        cl = makeCluster(nthreads);
+        # clusterExport(cl, c("gwasFast", "prsInf"));
+        parlist = clusterApplyLB(cl = cl, x = 1:nthreads, fun = prsParFun,
+                                 signal = signal,
+                                 N = N,
+                                 Nsim = ceiling(Nsim/nthreads),
+                                 minpv = minpv);
+        stopCluster(cl);
+        mnct = list(
+            mn = Reduce(`+`, lapply(parlist, `[[`, 'mn')),
+            ct = Reduce(`+`, lapply(parlist, `[[`, 'ct')));
+        rm(parlist, cl);
+    }
+    
+    grid = c(0.1^seq(-log10(minpv),0, by = -0.01), 1);
+    
+    keep = (mnct$ct > 0.8*Nsim);
+    r = mnct$mn[keep] / mnct$ct[keep];
+    pv = grid[keep];
+    
+    return(list( pv = pv, r = r )); 
+}

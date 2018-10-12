@@ -19,4 +19,4 @@ License: LGPL-3
 LazyLoad: yes
 BugReports: https://github.com/andreyshabalin/simPRS/issues
 URL: https://github.com/andreyshabalin/simPRS, https://andreyshabalin.shinyapps.io/simPRS/
-Depends: R (>= 3.4.0), utils, graphics, stats
+Depends: R (>= 3.4.0), utils, graphics, stats, parallel
