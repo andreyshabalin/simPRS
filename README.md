@@ -40,8 +40,8 @@ NTotalSNPs = 10000
 NSignalSnps = 100
 heritability = 0.2
 signalDistr = "Same"
-Ntrain = 10000;
-Ntest = 10000;
+Ntrain = 10000
+Ntest = 10000
 
 signal = genSignal(
             NSignalSnps = NSignalSnps,
