@@ -1,11 +1,13 @@
 # simPRS: Fast Simulation of Polygenic Risk Scores
 
-Simulation of Polygenic Risk Score calculations allows to 
-(1) Select an optimal p-value threshold,
-(2) Perform power analyses, and
-(3) Estimate polygenicity of a phenotype.
-Simulations are performed without direct simulations of the 
-genotype and phenotype data. 
+Simulation of Polygenic Risk Score calculations allows to
+
+1.  Select an optimal p-value threshold,
+2.  Perform power analyses, and
+3.  Estimate polygenicity of a phenotype.
+
+Simulations are performed without direct simulations of the
+genotype and phenotype data.
 Instead, genome-wide association study (GWAS) summary statistics
 are generated directly from their finite sample distributions.
 
