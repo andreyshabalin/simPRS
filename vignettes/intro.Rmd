@@ -1,0 +1,78 @@
+---
+title: "Overview of simPRS Package"
+date: "`r Sys.Date()`"
+output:
+    html_document:
+        theme: readable
+        toc: true # table of content true
+vignette: >
+    %\VignetteIndexEntry{Overview of simPRS package}
+    %\VignetteEngine{knitr::rmarkdown}
+---
+
+```{r loadKnitr, echo=FALSE, warning=FALSE}
+library("knitr")
+# opts_chunk$set(eval=FALSE)
+# library(pander)
+# panderOptions("digits", 3)
+set.seed(18090212)
+library(simPRS)
+```
+
+# Overview
+
+Simulation of Polygenic Risk Score calculations allows to
+
+1.  Select an optimal p-value threshold,
+2.  Perform power analyses, and
+3.  Estimate polygenicity of a phenotype.
+
+Simulations are performed without direct simulations of the 
+genotype and phenotype data. 
+Instead, genome-wide association study (GWAS) summary statistics
+are generated directly from their finite sample distributions.
+
+# Sample code
+
+## Perform a single simulation
+
+```{r singleSimulation}
+# Parameters
+NTotalSNPs = 10000
+NSignalSnps = 100
+heritability = 0.2
+signalDistr = "Same"
+Ntrain = 10000
+Ntest = 3000
+
+signal = genSignal(
+            NSignalSnps = NSignalSnps,
+            NTotalSNPs = NTotalSNPs,
+            heritability = heritability,
+            signalDistr = signalDistr)
+            
+gwas = gwasFast(signal = signal, N = Ntrain)
+
+prs = prsInf(
+            gwasPV = gwas$pv,
+            gwasBt = gwas$beta,
+            signal = signal)
+
+rci = rConfInt(r = prs$r, N = Ntest)
+
+prsPlot(pv = prs$pv, r = prs$r, rci)
+```
+
+## Average over 1000 simulations
+
+Let's use the parameters and `signal` defined above
+
+```{r manySimulation}
+Nsim = 1000
+
+prsA = prsMultitest(signal = signal, N = Ntrain, Nsim = Nsim, nthreads = 2)
+
+rci = rConfInt(r = prsA$r, N = Ntest)
+
+prsPlot(pv = prsA$pv, r = prsA$r, rci)
+```
