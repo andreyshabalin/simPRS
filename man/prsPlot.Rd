@@ -35,26 +35,27 @@ prsPlot(pv, r, confInt)
 %    See \code{\link[base]{order}}.
 %}
 \examples{
-signal = genSignal(
-            NSignalSnps = 10,
-            NTotalSNPs = 20,
-            heritability = 0.1,
-            signalDistr = "Same")
-            
-gwas = gwasFast(signal = signal, N = 85)
+NTotalSNPs = 10000
+NSignalSnps = 100
+heritability = 0.2
+signalDistr = "Same"
+Ntrain = 10000
+Ntest = 3000
 
-cbind(beta = gwas$beta, pv = gwas$pv)
+signal = genSignal(
+            NSignalSnps = NSignalSnps,
+            NTotalSNPs = NTotalSNPs,
+            heritability = heritability,
+            signalDistr = signalDistr)
+            
+gwas = gwasFast(signal = signal, N = Ntrain)
 
 prs = prsInf(
             gwasPV = gwas$pv,
             gwasBt = gwas$beta,
             signal = signal)
 
-cbind(pv = prs$pv, r = prs$r)
-
-rci = rConfInt(r = prs$r, N = 1000)
-
-cbind(pv = prs$pv, r = prs$r, rci)
+rci = rConfInt(r = prs$r, N = Ntest)
 
 prsPlot(pv = prs$pv, r = prs$r, rci)
 }
