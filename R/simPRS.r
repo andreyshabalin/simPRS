@@ -148,7 +148,7 @@ prsPlot = function(pv, r, confInt){
         col = col,
         border = NA); 
     legend(
-        x = 'right', 
+        x = 'topright', 
         legend = c(expression(paste("Asymptotic R"^"2")), 'Confidence band'),
         lwd = c(1,10),
         col = c('blue',col));
