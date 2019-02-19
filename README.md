@@ -23,13 +23,9 @@ To try `simPRS` via an online shiny interface
 To install `simPRS` directly from GitHub, run
 
 ```
+if(!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
 devtools::install_github("andreyshabalin/simPRS")
-```
-
-If `devtools` package is missing, it can be installed with
-
-```
-install.packages("devtools")
 ```
 
 ## Sample code
